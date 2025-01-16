@@ -1,4 +1,4 @@
-SRC_NAME=e2fsprogs-1.45.3
+SRC_NAME=e2fsprogs-1.47.1
 SRC_URL=https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.45.3/e2fsprogs-1.45.3.tar.xz
 
 THISDIR = $(shell pwd)
@@ -6,19 +6,8 @@ THISDIR = $(shell pwd)
 CFLAGS += -ffunction-sections -fdata-sections
 LDFLAGS += -Wl,--gc-sections
 
-all: download_test extract_test config_test
+all: config_test
 	$(MAKE) -j$(HOST_NCPU) -C $(SRC_NAME)
-
-download_test:
-	( if [ ! -f $(SRC_NAME).tar.xz ]; then \
-		wget -t5 --timeout=20 --no-check-certificate -O $(SRC_NAME).tar.xz $(SRC_URL); \
-	fi )
-
-extract_test:
-	( if [ ! -d $(SRC_NAME) ]; then \
-		tar xJf $(SRC_NAME).tar.xz; \
-		patch -d $(SRC_NAME) -p1 -i ../e2fsprogs-orig.patch; \
-	fi )
 
 config_test:
 	( if [ -f ./config_done ]; then \
