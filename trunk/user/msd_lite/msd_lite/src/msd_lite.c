@@ -1,5 +1,5 @@
 /*-
- * Copyright (c) 2012-2024 Rozhuk Ivan <rozhuk.im@gmail.com>
+ * Copyright (c) 2012-2025 Rozhuk Ivan <rozhuk.im@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -283,7 +283,7 @@ main(int argc, char *argv[]) {
 	cmd_line_data_t cmd_line_data;
 
 
-	mem_bzero(&g_data, sizeof(g_data));
+	memset(&g_data, 0x00, sizeof(g_data));
 	if (0 != cmd_line_parse(argc, argv, &cmd_line_data)) {
 		cmd_line_usage(PACKAGE_DESCRIPTION, PACKAGE_VERSION,
 		    "Rozhuk Ivan <rozhuk.im@gmail.com>",
@@ -363,7 +363,7 @@ main(int argc, char *argv[]) {
 		goto err_out;
 	}
 	http_srv_def_settings(1, PACKAGE_NAME"/"PACKAGE_VERSION, 1, &http_s);
-	http_s.req_p_flags = (HTTP_SRV_REQ_P_F_CONNECTION | HTTP_SRV_REQ_P_F_HOST);
+	http_s.req_p_flags = (HTTP_SRV_REQ_P_F_CONNECTION | HTTP_SRV_REQ_P_F_HOST | HTTP_SRV_REQ_P_F_HOST_ANY_PORT);
 	http_s.resp_p_flags = (HTTP_SRV_RESP_P_F_CONN_CLOSE | HTTP_SRV_RESP_P_F_SERVER | HTTP_SRV_RESP_P_F_CONTENT_LEN);
 	ccb.on_req_rcv = msd_http_srv_on_req_rcv_cb;
 	ccb.on_rep_snd = NULL;

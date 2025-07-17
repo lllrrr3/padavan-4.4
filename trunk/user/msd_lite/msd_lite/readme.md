@@ -4,7 +4,7 @@
 [![Build-Ubuntu-latest Actions Status](https://github.com/rozhuk-im/msd_lite/workflows/build-ubuntu-latest/badge.svg)](https://github.com/rozhuk-im/msd_lite/actions)
 
 
-Rozhuk Ivan <rozhuk.im@gmail.com> 2011 - 2023
+Rozhuk Ivan <rozhuk.im@gmail.com> 2011-2025
 
 msd_lite - Multi stream daemon lite.
 This lightweight version of Multi Stream daemon (msd)
@@ -44,8 +44,18 @@ git clone --recursive https://github.com/rozhuk-im/msd_lite.git
 cd msd_lite
 mkdir build
 cd build
-cmake ..
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_VERBOSE_MAKEFILE=true ..
 make -j 8
+```
+
+
+## Run tests
+```
+mkdir -p build
+cd build
+cmake -DCMAKE_BUILD_TYPE=Release -DENABLE_TESTS=1 ..
+cmake --build . --config Release -j 16
+ctest -C Release --output-on-failure -j 16
 ```
 
 
